@@ -104,3 +104,284 @@ button:disabled{opacity:.55;cursor:not-allowed}
 .composer-foot .icon{width:12px;height:12px}
 @media(max-width:760px){.app-shell{padding:0 5%}.hero{padding:63px 0 45px}.hero h1{letter-spacing:-2.5px}.site-footer{flex-wrap:wrap;padding:17px 0}.trust-row{gap:14px;margin-top:40px}.chat-shell{padding:0}.chat-layout{grid-template-columns:1fr}.side-panel{border-right:0;border-bottom:1px solid #e8e8e2;padding:15px 18px;display:grid;grid-template-columns:1fr auto;gap:4px 15px}.side-panel>.panel-label:first-child{grid-column:1/-1}.room-code{font-size:23px;margin:6px 0}.side-panel>.muted{grid-column:1/-1;margin:0}.side-panel>.divider{display:none}.side-panel>.panel-label:nth-of-type(2){grid-column:1/-1;margin-top:10px}.member-list{display:flex;flex-wrap:wrap;gap:9px;margin-top:6px}.member{font-size:10px}.avatar{width:24px;height:24px}.privacy-note{display:none}.conversation{min-height:calc(100vh - 255px)}.conversation-top{padding:18px}.message-list{padding:18px;max-height:calc(100vh - 320px)}.composer{padding:12px}.composer-foot{padding:0 14px 13px;font-size:8px}.expiry{font-size:9px}.message{max-width:90%}.header-status{display:none}}
 @media(max-width:420px){.hero h1{font-size:41px}.hero-copy{font-size:14px}.hero-actions{flex-direction:column}.hero-actions button{width:100%}.join-card,.invite-card{padding:19px}.invite-link-row{flex-direction:column}.copy-button{min-height:40px}.conversation-top h1{font-size:16px}.expiry{max-width:125px;white-space:normal;line-height:1.4}.composer-foot{flex-direction:column;gap:5px}}
+
+/* Room lifecycle controls */
+.room-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.leave-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  padding: 0 14px;
+  border: 1px solid var(--border, #deded8);
+  border-radius: 10px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.leave-button:hover {
+  background: rgba(127, 127, 127, 0.1);
+}
+
+.room-actions .danger-button {
+  min-height: 40px;
+  white-space: nowrap;
+}
+
+.room-actions button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+@media (max-width: 600px) {
+  .room-actions {
+    gap: 6px;
+  }
+
+  .room-actions .danger-button,
+  .leave-button {
+    padding: 0 9px;
+    font-size: 12px;
+  }
+}
+
+
+/* HushRoom compact WhatsApp-style attachment and view-once controls */
+.attachment-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex: 0 0 auto;
+}
+
+.attachment-plus {
+  width: 42px;
+  height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  transition: background 160ms ease, transform 160ms ease;
+}
+
+.attachment-plus:hover {
+  background: rgba(128, 128, 128, 0.14);
+}
+
+.attachment-plus:active {
+  transform: scale(0.94);
+}
+
+.attachment-plus .icon {
+  width: 23px;
+  height: 23px;
+}
+
+.attachment-plus:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.attachment-menu {
+  position: absolute;
+  z-index: 20;
+  left: 0;
+  bottom: calc(100% + 12px);
+  width: 245px;
+  padding: 7px;
+  border: 1px solid rgba(128, 128, 128, 0.22);
+  border-radius: 16px;
+  background: var(--panel, #171717);
+  color: var(--text, #f5f5f5);
+  box-shadow: 0 14px 38px rgba(0, 0, 0, 0.28);
+}
+
+.attachment-menu-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px;
+  border: 0;
+  border-radius: 11px;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.attachment-menu-item:hover {
+  background: rgba(128, 128, 128, 0.13);
+}
+
+.attachment-menu-icon {
+  width: 39px;
+  height: 39px;
+  flex: 0 0 39px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: rgba(124, 252, 0, 0.12);
+  color: #7cfc00;
+}
+
+.attachment-menu-icon .icon {
+  width: 20px;
+  height: 20px;
+}
+
+.attachment-menu-item strong,
+.attachment-menu-item small {
+  display: block;
+}
+
+.attachment-menu-item strong {
+  font-size: 13px;
+  font-weight: 650;
+}
+
+.attachment-menu-item small {
+  margin-top: 3px;
+  color: var(--muted, #a3a3a3);
+  font-size: 11px;
+}
+
+.view-once-card {
+  width: min(100%, 290px);
+  overflow: hidden;
+  border: 1px solid rgba(128, 128, 128, 0.2);
+  border-radius: 15px;
+  background: rgba(128, 128, 128, 0.055);
+}
+
+.view-once-trigger,
+.view-once-status {
+  width: 100%;
+  min-height: 68px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+}
+
+.view-once-trigger {
+  cursor: pointer;
+  transition: background 160ms ease;
+}
+
+.view-once-trigger:hover:not(:disabled) {
+  background: rgba(128, 128, 128, 0.1);
+}
+
+.view-once-trigger:disabled {
+  opacity: 0.72;
+  cursor: wait;
+}
+
+.view-once-one {
+  width: 39px;
+  height: 39px;
+  flex: 0 0 39px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid currentColor;
+  border-radius: 50%;
+  font-size: 19px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.view-once-copy {
+  min-width: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.view-once-copy strong {
+  font-size: 13px;
+  font-weight: 650;
+}
+
+.view-once-copy span {
+  color: var(--muted, #a3a3a3);
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+.view-once-open {
+  display: grid;
+  place-items: center;
+  opacity: 0.72;
+}
+
+.view-once-open .icon {
+  width: 18px;
+  height: 18px;
+}
+
+.view-once-status.unavailable {
+  opacity: 0.7;
+}
+
+.view-once-status.unavailable .view-once-one {
+  font-size: 17px;
+}
+
+.revealed-image img {
+  display: block;
+  width: 100%;
+  max-height: 360px;
+  object-fit: contain;
+  background: #080808;
+}
+
+.revealed-image .image-viewed-note {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  padding: 10px 13px;
+  font-size: 12px;
+}
+
+.revealed-image .image-viewed-note .icon {
+  width: 15px;
+  height: 15px;
+  flex: 0 0 15px;
+}
+
+@media (max-width: 560px) {
+  .attachment-menu {
+    width: 225px;
+  }
+
+  .view-once-card {
+    max-width: 260px;
+  }
+}
+
+/* Keep the native file picker hidden; the + menu opens it programmatically. */
+.composer .image-file-input,
+.composer input[type="file"] {
+  display: none !important;
+}
